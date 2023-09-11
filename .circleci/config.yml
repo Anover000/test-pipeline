@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build-and-push:
     docker:
-      - image: docker:20.10.8 # Choose a suitable Docker version
+      - image: circleci/python:3.8
     steps:
       - checkout
 
