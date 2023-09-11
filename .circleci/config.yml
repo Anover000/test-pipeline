@@ -7,6 +7,10 @@ jobs:
     steps:
       - checkout
 
+      - run: 
+          name: Starting docker
+          command: sudo systemctl start docker
+
       - run:
           name: Clone Git repository
           command: git clone https://github.com/Netflix/conductor.git
