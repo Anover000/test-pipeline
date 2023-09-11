@@ -9,7 +9,7 @@ jobs:
 
       - run: 
           name: Starting docker
-          command: sudo systemctl start docker
+          command: sudo service docker start
 
       - run:
           name: Clone Git repository
