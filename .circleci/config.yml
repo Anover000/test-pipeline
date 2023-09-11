@@ -9,7 +9,9 @@ jobs:
 
       - run: 
           name: Starting docker
-          command: sudo service docker start --privileged
+          command: |
+            sudo service docker status
+            sudo dockered  --privileged
 
       - run:
           name: Clone Git repository
