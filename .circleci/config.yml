@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build-and-push:
     docker:
-      - image: cimg/python:3.8
+      - image: cimg/docker:20.10.8
     steps:
       - checkout
 
