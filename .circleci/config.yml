@@ -13,7 +13,9 @@ jobs:
 
       - run:
           name: Build Conductor Server Docker Image
-          command: docker-compose -f docker-compose.yaml -f docker-compose-postgres.yaml build
+          command: |
+            cd conductor
+            docker-compose -f docker-compose.yaml -f docker-compose-postgres.yaml build
       
       - run:
           name: Push Conductor Server Docker Image
