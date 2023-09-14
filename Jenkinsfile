@@ -23,9 +23,8 @@ pipeline {
                     }
 
                     // Build Conductor Server Docker Image
-                    dir('conductor/docker/server') {
-//                         sh 'docker-compose -f docker-compose.yaml -f docker-compose-postgres.yaml build'
-                        sh docker build -t conductor:server .
+                    dir('conductor/docker') {
+                        sh 'docker-compose -f docker-compose.yaml -f docker-compose-postgres.yaml build'
                     }
 
                     // Push Conductor Server Docker Image
@@ -33,8 +32,8 @@ pipeline {
                     sh 'docker push anover/conductor:server'
 
                     // Push Conductor UI Docker Image
-//                     sh "echo 'Ankit@123docker' | docker login -u ankit@fynarfin.io --password-stdin"
-//                     sh 'docker push anover/conductor:ui'
+                    sh "echo 'Ankit@123docker' | docker login -u ankit@fynarfin.io --password-stdin"
+                    sh 'docker push anover/conductor:ui'
                 }
             }
         }
