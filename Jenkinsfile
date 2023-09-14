@@ -12,6 +12,7 @@ pipeline {
 
           stage('Building image') {
               steps {
+                  sh 'cd conductor'
                   sh 'docker build -t conductor:server -f docker/server/Dockerfile .'
               }
           }
