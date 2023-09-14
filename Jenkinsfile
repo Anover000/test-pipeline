@@ -12,7 +12,15 @@ pipeline {
                     sh 'docker info'
 
                     // Clone Git repository
-                    sh 'git clone https://github.com/Netflix/conductor.git'
+                    if (fileExists('conductor')) {
+                        // If it exists, update the repository
+                        dir('conductor') {
+                            sh 'git pull origin master'
+                        }
+                    } else {
+                        // If not, clone the repository
+                        sh 'git clone https://github.com/Netflix/conductor.git'
+                    }
 
                     // Build Conductor Server Docker Image
                     dir('conductor/docker') {
