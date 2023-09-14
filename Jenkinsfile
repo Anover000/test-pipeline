@@ -15,7 +15,7 @@ pipeline {
                     if (fileExists('conductor')) {
                         // If it exists, update the repository
                         dir('conductor') {
-                            sh 'git pull origin master'
+                            sh 'git pull origin'
                         }
                     } else {
                         // If not, clone the repository
