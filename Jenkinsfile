@@ -1,42 +1,27 @@
 pipeline {
     agent any
 
+
     stages {
-        stage('Build and Push') {
-            steps {
-                script {
-                    // Checkout code
-                    checkout scm
 
-                    // Start Docker
-                    sh 'docker info'
+          stage('Cloning from Git') {
+              steps {
+                  checkout scm: [$class: 'GitSCM', userRemoteConfigs: [[url: "https://github.com/Netflix/conductor.git" ]]], poll: false
+              }
+          }
 
-                    // Clone Git repository
-                    if (fileExists('conductor')) {
-                        // If it exists, update the repository
-                        dir('conductor') {
-                            sh 'git pull origin'
-                        }
-                    } else {
-                        // If not, clone the repository
-                        sh 'git clone https://github.com/Netflix/conductor.git'
-                    }
+          stage('Building image') {
+              steps {
+                  sh 'docker build -t conductor:server -f docker/server/Dockerfile .'
+              }
+          }
 
-                    // Build Conductor Server Docker Image
-                    dir('conductor/docker/server') {
-//                         sh 'docker-compose -f docker-compose.yaml -f docker-compose-postgres.yaml build'
-                        sh 'docker build -t conductor:server .'
-                    }
 
-                    // Push Conductor Server Docker Image
-                    sh "echo 'Ankit@123docker' | docker login -u ankit@fynarfin.io --password-stdin"
-                    sh 'docker push anover/conductor:server'
-
-                    // Push Conductor UI Docker Image
-//                     sh "echo 'Ankit@123docker' | docker login -u ankit@fynarfin.io --password-stdin"
-//                     sh 'docker push anover/conductor:ui'
-                }
-            }
-        }
+          stage('push') {
+              steps {
+                   sh "echo 'Ankit@123docker' | docker login -u ankit@fynarfin.io --password-stdin"
+                   sh 'docker push anover/conductor:server'
+              }
+          }
     }
 }
