@@ -13,7 +13,7 @@ jobs:
 
       - run: 
           name: Starting docker
-          command: sudo docker info
+          command: docker info
 
       - run:
           name: Clone Git repository
