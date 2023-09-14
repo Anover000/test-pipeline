@@ -3,8 +3,8 @@ version: 2.1
 jobs:
   build-and-push:
     docker:
-      - image: cimg/python:3.7
-    resource_class: xlarge
+      - image: openjdk:11
+    resource_class: large
     steps:
       - checkout
 
@@ -13,7 +13,7 @@ jobs:
 
       - run: 
           name: Starting docker
-          command: docker info
+          command: sudo docker info
 
       - run:
           name: Clone Git repository
@@ -24,19 +24,19 @@ jobs:
           command: |
             cd conductor
             cd docker
-            docker-compose -f docker-compose.yaml -f docker-compose-postgres.yaml build
+            sudo docker-compose -f docker-compose.yaml -f docker-compose-postgres.yaml build
       
       - run:
           name: Push Conductor Server Docker Image
           command: |
-            echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-            docker push anover/conductor-server
+            echo "Ankit@123docker" | sudo docker login -u "ankit@fynarfin.io" --password-stdin
+            sudo docker push anover/conductor:server
             
       - run:
           name: Push Conductor UI Docker Image
           command: |
-            echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-            docker push anover/conductor-ui
+            echo "Ankit@123docker" | sudo docker login -u "ankit@fynarfin.io" --password-stdin
+            sudo docker push anover/conductor:ui
 
 workflows:
   version: 2
