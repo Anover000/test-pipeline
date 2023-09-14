@@ -13,7 +13,7 @@ jobs:
 
       - run:
           name: sudo install
-          command: sudo apt-get install sudo
+          command: apt-get install -y sudo
 
       - run: 
           name: Starting docker
