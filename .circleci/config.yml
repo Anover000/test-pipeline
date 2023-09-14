@@ -3,17 +3,13 @@ version: 2.1
 jobs:
   build-and-push:
     docker:
-      - image: openjdk:11
+      - image: cimg/python:3.7
     resource_class: large
     steps:
       - checkout
 
       - setup_remote_docker:
           version: 20.10.7
-
-      - run:
-          name: sudo install
-          command: apt-get install -y sudo
 
       - run: 
           name: Starting docker
